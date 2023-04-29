@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{project}} | إضافة حقل
+{% endblock title %}
+
+
+{% block content %}
+
+<h2>
+{{project}} | إضافة حقل
+</h2>
+
+<a href="{% url 'fahrasah:single-project' project.id %}">صفحة المشروع</a>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+  <b></b>
+{% endif %}
+
+
+
+
+
+<h5 class="mt-5">الحقول</h5>
+<div class="table-responsive">
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">اسم الحقل</th>
+        <th scope="col">وصف الحقل</th>
+        <th scope="col">مرجع الحقل</th>
+        <th scope="col">قاعدة بيانات</th>
+        <th scope="col">الصفحة</th>
+        <th scope="col">سطر الأمر</th>
+        <th scope="col">رابط الحقل</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for field in fields %}
+      <tr>
+        <th scope="row">{{field.id}}</th>
+        <td>{{field.name}}</td>
+        <td>{{field.description}}</td>
+        <td>{{field.reference}}</td>
+        <td>{{field.database}}</td>
+        <td>{{field.page}}</td>
+        <td>{{field.cmd}}</td>
+        <td><a href="{{field.url}}">{{field.url}}</a></td>
+        <td>
+            <a href="{% url 'fahrasah:del-field' field.id %}" class="btn btn-danger">حذف</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+</div>
+
+<a href="{% url 'fahrasah:del-duplicated-fields' project.id %}" class="btn btn-danger">حذف المكرر</a>
+
+<br>
+<br>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_name">اسم الحقل</label>
+                <input type="text" name="field_name" placeholder="(اسم الكتاب , عنوان المؤلف)" class="form-control" id="field_name">
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_description">وصف الحقل</label>
+                <input type="text" placeholder="(حقل عنوان العمارة مربوط بجدول الطلب)" name="field_description" id="field_description" class="form-control">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="field_reference">مرجع الحقل</label>
+            <input type="text" name="field_reference" class="form-control" id='field_reference' placeholder="مثال: (book_title \ book__author)">
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_page">الصفحة</label>
+                <select class="form-control" name="field_page" id="field_page">
+                    {% for page in pages %}
+                    <option > {{page}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_url">رابط الحقل</label>
+                <input type="text" id="field_url" class="form-control" name="field_url" placeholder="src/fahrasah/models.py 56:49">
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_cmd">سطر الأمر</label>
+                <input type="text" name="field_cmd" id="field_cmd" placeholder="main_name = models.CharField(max_length=100, verbose_name='main')" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field_database">قاعدة البيانات</label>
+                <select class="form-control" name="field_database" id="field_database">
+                    {% for database in databases %}
+                    <option > {{database}} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+
+    <button type="submit" class="btn btn-dark">إضافة</button>
+</form>
+
+
+
+
+
+
+{% endblock content %}

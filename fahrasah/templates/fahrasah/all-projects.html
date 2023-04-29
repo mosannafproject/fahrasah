@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+جميع المشاريع
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .modal.fade .modal-dialog {
+    transition: transform 0.4s ease-out;
+    transform: translateY(-50px);
+    }
+    .modal.show .modal-dialog {
+    transform: translateY(0);
+    }
+</style>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h4 class="text-center">Modal Title</h4>
+          <p class="text-center">Modal content goes here</p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<h1>جميع المشاريع</h1>
+
+
+
+<table class="table mb-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">اسم المشروع</th>
+        <th scope="col">تاريخ البداية</th>
+        <th scope="col">تاريخ التسليم</th>
+        <th scope="col">مجال المشروع</th>
+        <th scope="col">نشاط المشروع</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for project in projects %}
+        <th scope="row"><a href="{% url 'fahrasah:single-project' project.id %}">{{project.id}}</a></th>
+        <td><a href="{% url 'fahrasah:single-project' project.id %}">{{project.title}}</a></td>
+        <td>{{project.start_date}}</td>
+        <td>{{project.end_date}}</td>
+        <td><a href="#">{{project.website_field}}</a></td>
+        <td>{{project.website_activity}}</td>
+        <td>
+            <a href="{% url 'fahrasah:single-project' project.id %}" class="btn btn-primary">تفاصيل</a>
+            <a href="{% url 'fahrasah:del-project' project.id %}" class="btn btn-danger">حذف</a>
+            
+        </td>
+    
+        </tr>
+        {% endfor %}
+      
+    </tbody>
+</table>
+
+<!-- <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">إضافة مشروع</button> -->
+<a href="{% url 'fahrasah:add-project' %}" class="btn btn-dark">إضافة مشروع</a>
+
+<a href="{% url 'fahrasah:del-duplicated-projects' 'title' %}" class="btn btn-danger">حذف المكرر</a>
+
+
+
+{% endblock content %}

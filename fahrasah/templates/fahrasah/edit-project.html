@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+تعديل مشروع
+{% endblock title %}
+
+{% block content %}
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+  <br>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.title.label}}
+            {{form.title}}
+        </div>
+        <div class="col-sm-6">
+            {{form.website_name.label}}
+            {{form.website_name}}
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.website_field.label}}
+            {{form.website_field}}
+        </div>
+        <div class="col-sm-6">
+            {{form.website_activity.label}}
+            {{form.website_activity}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.start_date.label}}
+            {{form.start_date}}
+        </div>
+        <div class="col-sm-6">
+            {{form.end_date.label}}
+            {{form.end_date}}
+        </div>
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn-dark">حفظ التعديلات</button>
+    <!-- {{form}} -->
+</form>
+
+{% endblock %}

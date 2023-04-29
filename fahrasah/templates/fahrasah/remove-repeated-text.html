@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+حذف المكرر من النص
+{% endblock title %}
+
+{% block content %}
+
+<h2>حذف المكرر من النص</h2>
+
+<table class="table mb-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">النص الأصلي</th>
+        <th scope="col">النص بعد الحذف</th>
+        <th scope="col">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for duplicate in duplicates %}
+        <th scope="row"><a href="">{{duplicate.id}}</a></th>
+        <td>
+          {{duplicate.text|truncatewords:4}}
+          <p hidden id="text-before">{{duplicate.text}}</p>
+        </td>
+        <td>
+          {{duplicate.repeated_text|truncatewords:5}}
+          <p hidden id="text-after">{{duplicate.repeated_text}}</p>
+        </td>
+        <td>
+            <a id="buttonDetails" class="btn btn-primary">تفاصيل</a>
+            <a id="buttonDelete" class="btn btn-danger">حذف</a>
+            
+        </td>
+
+
+    
+        </tr>
+
+        {% endfor %}
+      
+    </tbody>
+</table>
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>النص الأصلي</h4>
+        <p class="text-muted" id="text_before">هنا يظهر النص قبل حذف المكرر منه</p>
+      </div>
+      <div class="col-sm-6">
+        <h4>النص بعد الحذف</h4>
+        <p class="text-muted" id="text_after">هنا يظهر النص بعد حذف المكرر منه</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <a id="buttonCopy" class="btn btn-dark">نسخ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div id="myAlert" class="alert alert-success fade" role="alert">
+  تم نسخ النص
+</div>
+
+<script>
+
+  btnDetails = document.querySelectorAll('#buttonDetails');
+  
+  textBefore = document.querySelector('#text_before');
+  textAfter = document.querySelector('#text_after');
+
+  btnDetails.forEach((button) => {
+    button.addEventListener('click', () => {
+      // console.log(button.parentElement.parentElement.parentElement.querySelector("#text-before"))
+      textBefore.textContent = button.parentElement.parentElement.querySelector('#text-before').textContent
+      textAfter.textContent = button.parentElement.parentElement.querySelector('#text-after').textContent
+  })
+  })
+
+
+  buttonCopy = document.querySelector('#buttonCopy') 
+
+  buttonCopy.onclick = () => { 
+    range = document.createRange() 
+
+    range.selectNodeContents(textAfter)
+
+    let selection = window.getSelection()
+    selection.removeAllRanges(); 
+    selection.addRange(range) 
+
+    document.execCommand('copy'); 
+
+    selection.removeAllRanges() 
+
+    $(function() {
+			$('#myAlert').addClass('show');
+			setTimeout(function() {
+				$('#myAlert').removeClass('show');
+			}, 2000);
+		});
+    
+  }
+
+</script>
+
+{% endblock content %}

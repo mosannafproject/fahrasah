@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+تعديل حقل
+{% endblock title %}
+
+{% block content %}
+
+<h2>تعديل حقل</h2>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+  <br>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{form.name.label}}
+            {{form.name}}
+        </div>
+        
+        <div class="col-sm-6">
+            {{form.reference.label}}
+            {{form.reference}}
+        </div>
+        
+    </div>
+
+    <br>
+
+    <div class="row">
+        
+
+        <div class="col-sm-4">
+            {{form.description.label}}
+            {{form.description}}
+        </div>
+
+
+
+        <div class="col-sm-4">
+            {{form.database.label}}
+            {{form.database}}
+        </div>
+
+        <div class="col-sm-4">
+            {{form.url.label}}
+            {{form.url}}
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-12">
+            {{form.cmd.label}}
+            {{form.cmd}}
+        </div>
+    </div>
+
+    <br>
+    
+
+
+
+
+    <button type="submit" class="btn btn-dark">حفظ</button>
+</form>
+
+
+
+
+
+{% endblock content %}

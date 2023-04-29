@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+إضافة مشروع
+{% endblock title %}
+
+
+{% block content %}
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="project_name">اسم المشروع</label>
+                <input type="text" name="project_name" class="form-control" id="project_name">
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="website_name">اسم الموقع</label>
+                <input type="text" name="website_name" id="website_name" class="form-control">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="start_date">تاريخ البداية</label>
+                <input type="date" class="form-control" id="start_date" name="start_date">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="end_date">تاريخ التسليم</label>
+                <input type="date" name="end_date" id="end_date" class="form-control">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="field">مجال المشروع</label>
+                <select class="form-control" id="field" name="field">
+                    {% for field in fields %}  
+                    <option>{{field}}</option>
+                    {% endfor %}  
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="project_activity">نشاط المشروع</label>
+                <select id="project_activity" name="project_activity" class="form-control">
+                    {% for activity in activities %}
+                    <option>{{activity}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <button type="submit" class="btn btn-dark">إضافة</button>
+</form>
+
+
+
+
+
+
+{% endblock content %}

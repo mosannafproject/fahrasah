@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}
+إضافة صفحة
+{% endblock title %}
+
+
+{% block content %}
+
+<h2>إضافة صفحة</h2>
+
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+  <b></b>
+{% endif %}
+
+
+
+<h5 class="mt-5">الصفحات</h5>
+<div class="table-responsive">
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">اسم الصفحة</th>
+        <th scope="col">مرجع الصفحة</th>
+        <th scope="col">رابط الصفحة</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for page in pages %}
+      <tr>
+        <th scope="row">{{page.id}}</th>
+        <td>{{page.name}}</td>
+        <td>{{page.reference}}</td>
+        <td><a href="{{page.url}}">{{page.url}}</a></td>
+        <td>
+            <a href="{% url 'fahrasah:del-page' page.id %}" class="btn btn-danger">حذف</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+</table>
+</div>
+
+<a href="{% url 'fahrasah:del-duplicated-pages' project.id %}" class="btn btn-danger">حذف المكرر</a>
+
+<br>
+<br>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="page_name">اسم الصفحة</label>
+                <input type="text" name="page_name" placeholder="مثال: (الصفحة الرئيسية, نبذه)" class="form-control" id="page_name">
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="page_reference">مرجع الصفحة</label>
+                <input type="text" placeholder="مثال (src/main.html)" name="page_reference" id="page_reference" class="form-control">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="page_url">رابط الصفحة</label>
+            <input type="text" name="page_url" class="form-control" id='page_url' placeholder="مثال: (https://www.facebook.com/codingabdullah)">
+        </div>
+    </div>
+    <br>
+
+
+
+    <button type="submit" class="btn btn-dark">إضافة</button>
+</form>
+
+
+
+
+
+
+{% endblock content %}

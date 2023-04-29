@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+تعديل صفحة
+{% endblock title %}
+
+{% block content %}
+
+<h2>تعديل صفحة</h2>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+      <div class="alert alert-success" role="alert">
+        {{message}}
+      </div>
+    {% endfor %}
+  </ul>
+  <br>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+        {{form.name.label}}
+        {{form.name}}
+
+    <br>
+        {{form.reference.label}}
+        {{form.reference}}
+    <br>
+        {{form.url.label}}
+        {{form.url}}
+    <br>
+    <button type="submit" class="btn btn-dark">حفظ</button>
+</form>
+
+
+{% endblock content %}
