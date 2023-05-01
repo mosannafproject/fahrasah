@@ -266,3 +266,10 @@ def remove_repeated_text(request):
         'duplicates': duplicates
     }
     return render(request, 'fahrasah/remove-repeated-text.html', context)
+
+
+def delete_repeated_text_record(request, id):
+    
+    record = RemoveDuplicate.objects.get(id=id).delete() 
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))

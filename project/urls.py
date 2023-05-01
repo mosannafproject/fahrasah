@@ -24,3 +24,7 @@ urlpatterns = [
     
     path('', include('fahrasah.urls', namespace='fahrasah'))
 ]
+
+
+handler404 = "project.views.handler404"
+handler500 = "project.views.handler500"

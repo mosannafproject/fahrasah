@@ -21,4 +21,5 @@ urlpatterns = [
     path('field/edit/<int:id>/', edit_field, name='edit-field'), 
 
     path('services/remove-repeated/', remove_repeated_text, name='remove-repeated-text'),
+    path('services/remove-repeated-record/<int:id>/', delete_repeated_text_record, name='remove-repeated-text-record')
 ]
