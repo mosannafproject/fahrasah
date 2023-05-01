@@ -22,7 +22,8 @@ urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
     
-    path('', include('fahrasah.urls', namespace='fahrasah'))
+    path('', include('fahrasah.urls', namespace='fahrasah')),
+    path('duplicates-remover/', include('duplicates_remover.urls', namespace='duplicates-remover')),
 ]
 
 
