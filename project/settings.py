@@ -133,3 +133,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JET_DEFAULT_THEME = 'light-gray'
+
+
+CSRF_TRUSTED_ORIGINS = ['https://fahrasah-production.up.railway.app']
