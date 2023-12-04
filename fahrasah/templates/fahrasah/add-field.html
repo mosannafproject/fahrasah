@@ -5,7 +5,115 @@
 {% endblock title %}
 
 
+
 {% block content %}
+    <a href="{% url 'fahrasah:single-project' project.id %}">صفحة المشروع</a>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+    </ul>
+    <b></b>
+    {% endif %}
+
+
+    <h5 class="mt-5">الحقول</h5>
+    <div class="table-responsive">
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">اسم الحقل</th>
+            <th scope="col">وصف الحقل</th>
+            <th scope="col">مرجع الحقل</th>
+            <th scope="col">قاعدة بيانات</th>
+            <th scope="col">الصفحة</th>
+            <th scope="col">سطر الأمر</th>
+            <th scope="col">رابط الحقل</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for field in fields %}
+          <tr>
+            <th scope="row">{{field.id}}</th>
+            <td>{{field.name}}</td>
+            <td>{{field.description}}</td>
+            <td>{{field.reference}}</td>
+            <td>{{field.database}}</td>
+            <td>{{field.page}}</td>
+            <td>{{field.cmd}}</td>
+            <td><a href="{{field.url}}">{{field.url}}</a></td>
+            <td>
+                <a href="{% url 'fahrasah:del-field' field.id %}" class="btn btn-danger">حذف</a>
+            </td>
+          </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    </div>
+    
+    <a href="{% url 'fahrasah:del-duplicated-fields' project.id %}" class="btn btn-danger">حذف المكرر</a>
+    
+    <br>
+    <br>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                {{form.name.label}}
+                {{form.name}}
+            </div>
+            <div class="col-sm-6">
+                {{form.property.label}}
+                {{form.property}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                {{form.description.label}}
+                {{form.description}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                {{form.reference.label}}
+                {{form.reference}}
+            </div>
+            <div class="col-sm-6">
+                {{form.database.label}}
+                {{form.database}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                {{form.url.label}}
+                {{form.url}}
+            </div>
+            <div class="col-sm-6">
+                {{form.cmd.label}}
+                {{form.cmd}}
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-dark">إضافة</button>
+
+    </form>
+
+{% endblock content %}
+    
+
+{% block content1 %}
 
 <h2>
 {{project}} | إضافة حقل
@@ -84,11 +192,36 @@
 
         <div class="col-sm-6">
             <div class="form-group">
+                <label for="field_name">خصائص الحقل</label>
+                <select class="form-select" aria-label="Default select example" required name="field_property">
+                    <option selected>اختر من القائمة</option>
+                    <option value="جدول">جدول</option>
+                    <option value="نص">نص</option>
+                    <option value="مذكرة">مذكرة</option>
+                    <option value="رقم">رقم</option>
+                    <option value="عملة">عملة</option>
+                    <option value="ترقم تلقائي">ترقيم تلقائي</option>
+                    <option value="منطقية">منطقية</option>
+                    <option value="كائن">كائن</option>
+                    <option value="نسبة مئوية">نسبة مئوية</option>
+                </select>
+            </div>
+        </div>
+
+
+
+    </div>
+    <br>
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="form-group">
                 <label for="field_description">وصف الحقل</label>
                 <input type="text" placeholder="(حقل عنوان العمارة مربوط بجدول الطلب)" name="field_description" id="field_description" class="form-control">
             </div>
         </div>
     </div>
+
     <br>
     <div class="row">
         <div class="form-group">
@@ -149,4 +282,4 @@
 
 
 
-{% endblock content %}
+{% endblock content1 %}

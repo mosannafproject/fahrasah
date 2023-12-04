@@ -53,6 +53,27 @@ class EditFieldForm(forms.ModelForm):
             'url': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
             'database': forms.Select(attrs={'class': 'form-control'}), 
             'cmd': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'property': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'})
+
+        }
+        
+
+
+class AddFieldForm(forms.ModelForm):
+
+    class Meta:
+        model = Field 
+        fields = '__all__' 
+        # exclude = [ 'page']
+
+        widgets = {
+            'name': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'description': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'reference': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'url': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'database': forms.Select(attrs={'class': 'form-control'}), 
+            'cmd': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
+            'property': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'})
 
         }
         

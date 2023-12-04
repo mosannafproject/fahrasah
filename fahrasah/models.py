@@ -72,6 +72,8 @@ class Page(models.Model):
         # return f"{self.project} | {self.name}"
         return self.name 
 
+
+
 class Field(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, verbose_name="اسم الحقل")
@@ -83,6 +85,7 @@ class Field(models.Model):
     # page = models.CharField(max_length=250, verbose_name="الصفحة", choices=PAGE_CHOICES)
     url = models.CharField(max_length=250, verbose_name="رابط الحقل", null=True, blank=True)
     cmd = models.CharField(max_length=255, verbose_name="سطر الأمر")
+    property = models.CharField(max_length=200, verbose_name="خصائص الحقل" , null=True, blank=True)
 
     def __str__(self):
         return f"{self.project} | {self.name}" 

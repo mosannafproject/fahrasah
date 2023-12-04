@@ -150,7 +150,7 @@ def add_page(request, project_id):
 
 
 
-def add_field(request, project_id):
+def add_field1(request, project_id):
     project = Project.objects.get(id=project_id)
     pages = Page.objects.filter(project=project)
 
@@ -168,10 +168,12 @@ def add_field(request, project_id):
         page_obj = Page.objects.filter(project=project).get(name=field_page)
         field_url = request.POST.get('field_url') 
         field_cmd = request.POST.get('field_cmd') 
+        field_property = request.POST.get('field_property') 
         field_database = request.POST.get('field_database') 
         field_database = Database.objects.get(name=field_database)
 
-        Field.objects.create(project=project, name=field_name, description=field_description, reference=field_reference, database=field_database, page=page_obj, url=field_url, cmd=field_cmd)
+        Field.objects.create(project=project, name=field_name, description=field_description, 
+                             reference=field_reference, database=field_database, page=page_obj, url=field_url, cmd=field_cmd, property=field_property)
 
         messages.success(request, "تمت إضافة الحقل بنجاح") 
         
@@ -183,6 +185,38 @@ def add_field(request, project_id):
         'pages': pages, 
         'databases': databases,
     }
+    return render(request, 'fahrasah/add-field.html', context)
+
+
+
+def add_field(request, project_id): 
+    project = Project.objects.get(id=project_id)
+    pages = Page.objects.filter(project=project)
+
+    
+
+    fields = Field.objects.filter(project=project) 
+    databases = Database.objects.all()  
+
+
+    form = EditFieldForm() 
+
+    if request.POST: 
+        form = EditFieldForm(request.POST) 
+
+        if form.is_valid(): 
+            form.instance.project = project 
+            form.save() 
+            messages.success(request, "تمت إضافة الحقل بنجاح") 
+    
+    context = {
+        'project': project, 
+        'fields': fields,
+        'pages': pages, 
+        'databases': databases,
+        'form': form
+    }
+
     return render(request, 'fahrasah/add-field.html', context)
 
 
