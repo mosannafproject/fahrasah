@@ -64,7 +64,7 @@ class AddFieldForm(forms.ModelForm):
     class Meta:
         model = Field 
         fields = '__all__' 
-        # exclude = [ 'page']
+        exclude = [ 'page', 'project']
 
         widgets = {
             'name': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 

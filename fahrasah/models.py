@@ -3,6 +3,20 @@ from django.db import models
 import arabic_reshaper 
 from bidi.algorithm import get_display 
 
+
+FIELD_PROPERTIES = [
+    ('جدول', 'Table'),
+    ('نص', 'Text'),
+    ('مذكرة', 'Memo'),
+    ('رقم', 'Number'),
+    ('عملة', 'Currency'),
+    ('ترقيم تلقائي', 'Auto Number'),
+    ('منطقية', 'Boolean'),
+    ('كائن', 'Object'),
+    ('نسبة مئوية', 'Percentage'),
+    ('حاسبة', 'Calculator'),
+]
+
 # Create your models here.
 class RemoveDuplicate(models.Model):
 
@@ -85,7 +99,7 @@ class Field(models.Model):
     # page = models.CharField(max_length=250, verbose_name="الصفحة", choices=PAGE_CHOICES)
     url = models.CharField(max_length=250, verbose_name="رابط الحقل", null=True, blank=True)
     cmd = models.CharField(max_length=255, verbose_name="سطر الأمر")
-    property = models.CharField(max_length=200, verbose_name="خصائص الحقل" , null=True, blank=True)
+    property = models.CharField(max_length=200, verbose_name="خصائص الحقل" , null=True, blank=True, choices=FIELD_PROPERTIES)
 
     def __str__(self):
         return f"{self.project} | {self.name}" 

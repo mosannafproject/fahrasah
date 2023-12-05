@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from django.db.models import Count 
 from django.contrib import messages
-from .forms import EditProjectForm, EditPageForm, EditFieldForm
+from .forms import EditProjectForm, EditPageForm, EditFieldForm, AddFieldForm
 
 # Create your views here.
 
@@ -199,15 +199,17 @@ def add_field(request, project_id):
     databases = Database.objects.all()  
 
 
-    form = EditFieldForm() 
+    form = AddFieldForm() 
 
     if request.POST: 
-        form = EditFieldForm(request.POST) 
+        form = AddFieldForm(request.POST) 
 
+        form.instance.project = project 
         if form.is_valid(): 
-            form.instance.project = project 
-            form.save() 
+            form.save()
             messages.success(request, "تمت إضافة الحقل بنجاح") 
+        else: 
+            print(form.errors)
     
     context = {
         'project': project, 
