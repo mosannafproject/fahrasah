@@ -73,7 +73,7 @@ class AddFieldForm(forms.ModelForm):
             'url': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
             'database': forms.Select(attrs={'class': 'form-control'}), 
             'cmd': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'}), 
-            'property': forms.TextInput(attrs={'type': 'text', 'class': 'form-control'})
+            'property': forms.Select(attrs={'class': 'form-control'})
 
         }
         
